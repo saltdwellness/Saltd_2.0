@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  /* Kilian blue is now the SALTD accent - the token name stays `lime` so we
+     don't have to touch every className, but the value is blue. */
+  --color-saltd-lime:        #2E5BFF;
+  --color-saltd-purple:      #6C2BD9;
+  --color-saltd-orange:      #F97316;
+  --color-saltd-black:       #0D0D0D;
+  --color-saltd-cream:       #F5F2EB;
+  --color-saltd-pale-lime:   #E1EAFF;  /* pale kilian blue */
+  --color-saltd-pale-purple: #EDE8FD;
+  --color-saltd-pale-orange: #FEF0E6;
+
+  --font-display: var(--font-montserrat), sans-serif;
+  --font-body:    var(--font-dm-sans), sans-serif;
+
+  --animate-marquee:      marquee 25s linear infinite;
+  --animate-float:        float 4s ease-in-out infinite;
+  --animate-float-delayed: float 4s ease-in-out 1.5s infinite;
+  --animate-blob-drift:   blob-drift 8s ease-in-out infinite;
+
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(-8deg); }
+    50%       { transform: translateY(-14px) rotate(-8deg); }
+  }
+
+  @keyframes blob-drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(20px, -15px) scale(1.05); }
+    66%       { transform: translate(-10px, 10px) scale(0.97); }
+  }
+
+  --font-size-hero:    clamp(64px, 10vw, 120px);
+  --line-height-hero:  0.95;
+  --letter-spacing-hero: -0.02em;
+
+  --font-size-section: clamp(40px, 6vw, 72px);
+  --line-height-section: 1.0;
+
+  --font-size-card: clamp(24px, 3vw, 32px);
+  --line-height-card: 1.1;
+}
+
+@layer base {
+  :root { --marquee-h: 44px; }
+  html { scroll-behavior: auto; scroll-padding-top: calc(var(--marquee-h) + 72px); }
+
+  body {
+    background-color: #F5F2EB;
+    /* one bright, refreshing wash for the whole site - fixed so it stays consistent */
+    background-image:
+      radial-gradient(100% 60% at 15% 0%, rgba(46, 91, 255, 0.14), transparent 55%),
+      radial-gradient(80% 50% at 100% 20%, rgba(46, 91, 255, 0.08), transparent 60%),
+      linear-gradient(180deg, #F7F5EE 0%, #F2F0E6 100%);
+    background-attachment: fixed;
+    color: #0D0D0D;
+    font-family: var(--font-dm-sans), sans-serif;
+  }
+
+  ::selection { background: #2E5BFF; color: #ffffff; }
+}
+
+/* Custom utility classes for Tailwind v4 */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+@utility font-body {
+  font-family: var(--font-body);
+}
+
+@utility text-hero {
+  font-size: clamp(64px, 10vw, 120px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+@utility text-section {
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.0;
+}
+
+@utility text-card {
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.1;
+}
+
+/* ─── Liquid glass surfaces ─────────────────────────────────────────────
+   Translucent + blurred + saturated, with a bright top edge (specular
+   highlight) and a soft drop shadow. Use on floating chrome: nav, sticky
+   bars, pills, drawers. */
+@utility glass {
+  background-color: color-mix(in srgb, #f5f2eb 55%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 8px 30px rgba(13, 13, 13, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.14);
+}
+
+@utility glass-dark {
+  background-color: rgba(13, 13, 13, 0.55);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* Blue-tinted glass for primary CTAs. */
+@utility glass-blue {
+  background-color: rgba(24, 48, 168, 0.82);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 10px 30px rgba(24, 48, 168, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  color: #fff;
+}
