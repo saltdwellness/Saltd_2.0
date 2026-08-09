@@ -27,7 +27,7 @@ export function Hero() {
           {/* Left - brand story */}
           <div className="flex flex-col justify-start lg:justify-center pt-10 pb-12 lg:py-0 px-6 lg:pl-12 lg:pr-8 relative z-10">
             <div ref={headlineRef} className="overflow-hidden">
-              <h1 className="font-display text-hero text-saltd-black leading-[0.95]">
+              <h1 className="font-display text-hero text-white leading-[0.95] [text-shadow:0_2px_8px_rgba(0,0,0,0.35),0_2px_28px_rgba(0,0,0,0.45)]">
                 {words.map((word, i) => (
                   <span key={i} className="overflow-hidden inline-block mr-[0.25em]">
                     <span className="word-inner block">
@@ -40,7 +40,7 @@ export function Hero() {
 
             <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-              className="font-body text-lg text-saltd-black/80 lg:text-saltd-black/60 max-w-[460px] mt-6"
+              className="font-body text-lg text-white max-w-[460px] mt-6 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]"
             >
               Electrolytes in flavours you actually want to drink. Made for workouts, workdays,
               travel days, and everything in between. Clean ingredients. Honest labels. Real hydration.
@@ -53,12 +53,12 @@ export function Hero() {
               <a href="/shop" className="bg-saltd-lime text-white font-body font-semibold px-7 py-3.5 rounded-full hover:scale-105 active:scale-95 transition-transform">
                 Shop the reset →
               </a>
-              <a href="#flavours-picker" className="border-2 border-saltd-black/15 text-saltd-black font-body font-semibold px-7 py-3.5 rounded-full hover:border-saltd-black transition-colors">
+              <a href="#flavours-picker" className="border-2 border-white/50 text-white font-body font-semibold px-7 py-3.5 rounded-full hover:border-white transition-colors [text-shadow:0_1px_10px_rgba(0,0,0,0.4)]">
                 Explore flavours
               </a>
             </motion.div>
 
-            <p className="font-body italic text-sm text-saltd-black/50 mt-10">Water had a new personality.</p>
+            <p className="font-body italic text-sm text-white/80 mt-10 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)]">Water had a new personality.</p>
           </div>
 
           {/* Right - empty spacer so the headline stays left while the background product shows on the right (desktop) */}
