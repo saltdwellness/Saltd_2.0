@@ -45,15 +45,15 @@ export function FlavourTabs() {
           onTouchStart={(e) => { dragX.current = e.touches[0].clientX; }}
           onTouchEnd={(e) => {
             const dx = e.changedTouches[0].clientX - dragX.current;
-            if (dx < -45) { prev(); didDrag.current = true; }
-            else if (dx > 45) { next(); didDrag.current = true; }
+            if (dx < -45) { next(); didDrag.current = true; }
+            else if (dx > 45) { prev(); didDrag.current = true; }
             else didDrag.current = false;
           }}
           onPointerDown={(e) => { dragX.current = e.clientX; }}
           onPointerUp={(e) => {
             const dx = e.clientX - dragX.current;
-            if (dx < -45) { prev(); didDrag.current = true; }
-            else if (dx > 45) { next(); didDrag.current = true; }
+            if (dx < -45) { next(); didDrag.current = true; }
+            else if (dx > 45) { prev(); didDrag.current = true; }
             else didDrag.current = false;
           }}
         >
