@@ -27,6 +27,10 @@ export function Hero() {
           bottom so the sticks read vivid without washing out the text above. */}
       <div className="lg:hidden absolute inset-0 z-0 bg-[linear-gradient(to_bottom,#F5F2EB_0%,#F5F2EB_30%,rgba(245,242,235,0.68)_52%,rgba(245,242,235,0.32)_72%,transparent_100%)]" />
 
+      {/* Desktop scrim - cream fades left-to-right so the headline stays legible
+          over the pool water while the product on the right shows clean. */}
+      <div className="hidden lg:block absolute inset-0 z-0 bg-[linear-gradient(to_right,#F5F2EB_0%,rgba(245,242,235,0.85)_28%,rgba(245,242,235,0.4)_46%,transparent_62%)]" />
+
       <div className="relative z-[1] min-h-[calc(100svh_-_var(--marquee-h)_-_72px)] lg:min-h-screen lg:overflow-hidden flex flex-col">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_46%] flex-1">
           {/* Left - brand story */}
