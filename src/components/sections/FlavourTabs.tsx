@@ -42,13 +42,6 @@ export function FlavourTabs() {
       <div id="flavours-picker" className="mt-8 lg:mt-10 relative scroll-mt-24">
         <div
           className="flex items-center justify-center gap-4 sm:gap-10 lg:gap-16 touch-pan-y select-none cursor-grab active:cursor-grabbing"
-          onTouchStart={(e) => { dragX.current = e.touches[0].clientX; }}
-          onTouchEnd={(e) => {
-            const dx = e.changedTouches[0].clientX - dragX.current;
-            if (dx < -45) { next(); didDrag.current = true; }
-            else if (dx > 45) { prev(); didDrag.current = true; }
-            else didDrag.current = false;
-          }}
           onPointerDown={(e) => { dragX.current = e.clientX; }}
           onPointerUp={(e) => {
             const dx = e.clientX - dragX.current;
