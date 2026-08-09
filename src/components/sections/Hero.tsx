@@ -27,7 +27,7 @@ export function Hero() {
           {/* Left - brand story */}
           <div className="flex flex-col justify-start lg:justify-center pt-10 pb-12 lg:py-0 px-6 lg:pl-12 lg:pr-8 relative z-10">
             <div ref={headlineRef} className="overflow-hidden">
-              <h1 className="font-display text-hero text-white leading-[0.95] [text-shadow:0_2px_8px_rgba(0,0,0,0.35),0_2px_28px_rgba(0,0,0,0.45)]">
+              <h1 className="font-display text-hero text-white leading-[0.95]">
                 {words.map((word, i) => (
                   <span key={i} className="overflow-hidden inline-block mr-[0.25em]">
                     <span className="word-inner block">
