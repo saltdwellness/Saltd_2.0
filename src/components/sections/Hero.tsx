@@ -25,7 +25,7 @@ export function Hero() {
       {/* Mobile scrim - keeps the headline + copy legible over the product art.
           Stays strong through the CTA zone (~72%) and only clears at the very
           bottom so the sticks read vivid without washing out the text above. */}
-      <div className="lg:hidden absolute inset-0 z-0 bg-[linear-gradient(to_bottom,#F5F2EB_0%,#F5F2EB_32%,rgba(245,242,235,0.88)_54%,rgba(245,242,235,0.6)_74%,transparent_100%)]" />
+      <div className="lg:hidden absolute inset-0 z-0 bg-[linear-gradient(to_bottom,#F5F2EB_0%,#F5F2EB_30%,rgba(245,242,235,0.68)_52%,rgba(245,242,235,0.32)_72%,transparent_100%)]" />
 
       <div className="relative z-[1] min-h-[calc(100svh_-_var(--marquee-h)_-_72px)] lg:min-h-screen lg:overflow-hidden flex flex-col">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_46%] flex-1">
