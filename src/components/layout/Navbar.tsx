@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { ShoppingBag, Menu, X, User } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCartStore, cartCount } from '@/store/cart';
 
 // Section links point at the homepage + hash (e.g. `/#flavours-picker`) so they
@@ -47,8 +48,8 @@ export function Navbar() {
         transition={{ duration: 0.3 }}
       >
         {/* Logo */}
-        <Link href="/" className="font-display text-4xl lg:text-5xl text-saltd-black tracking-tight leading-none">
-          SALTD<span className="text-saltd-lime">.</span>
+        <Link href="/" aria-label="SALTD. home" className="leading-none">
+          <Image src="/images/saltd-logo.png" alt="SALTD." width={1021} height={348} priority className="h-8 lg:h-9 w-auto" />
         </Link>
 
         {/* Center links - desktop */}

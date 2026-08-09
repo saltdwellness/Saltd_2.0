@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { NewsletterForm } from './NewsletterForm';
 
 const shopLinks = [
@@ -61,9 +62,8 @@ export function Footer() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
         {/* Brand */}
         <div className="md:col-span-5">
-          <p className="font-display text-3xl text-white">
-            SALTD<span className="text-saltd-lime">.</span>
-          </p>
+          <Image src="/images/saltd-logo-white.png" alt="SALTD." width={1021} height={348} className="h-8 w-auto" />
+
           <p className="font-body text-2xl text-white/85 leading-snug mt-6 max-w-[340px]">
             &quot;High-performance hydration rituals for the modern palate.&quot;
           </p>
