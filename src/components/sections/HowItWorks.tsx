@@ -33,7 +33,7 @@ export function HowItWorks() {
               <div className="relative">
                 {/* big lime number */}
                 <span
-                  className="absolute -top-4 -left-4 md:-top-14 md:-left-8 z-10 font-display text-[130px] leading-none select-none pointer-events-none"
+                  className="absolute -top-14 -left-8 translate-y-[5%] z-10 font-display text-[130px] leading-none select-none pointer-events-none"
                   style={{ color: '#2E5BFF', WebkitTextStroke: '2px #0D0D0D', paintOrder: 'stroke' }}
                 >
                   {step.number}
