@@ -52,10 +52,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}
               className="flex flex-wrap gap-3 mt-8"
             >
-              <a href="/shop" className="bg-saltd-lime text-white font-body font-semibold px-7 py-3.5 rounded-full hover:scale-105 active:scale-95 transition-transform">
+              <a href="/shop" className="bg-saltd-lime text-white font-body font-semibold px-7 py-3.5 rounded-full shadow-xl shadow-black/30 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all">
                 Shop the reset →
               </a>
-              <a href="#flavours-picker" className="border-2 border-white/50 text-white font-body font-semibold px-7 py-3.5 rounded-full hover:border-white transition-colors [text-shadow:0_1px_10px_rgba(0,0,0,0.4)]">
+              <a href="#flavours-picker" className="border-2 border-white/70 bg-white/10 backdrop-blur-sm text-white font-body font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-black/25 hover:bg-white/20 hover:border-white hover:scale-105 active:scale-95 transition-all [text-shadow:0_1px_10px_rgba(0,0,0,0.4)]">
                 Explore flavours
               </a>
             </motion.div>
