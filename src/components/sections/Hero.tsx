@@ -38,13 +38,15 @@ export function Hero() {
               </h1>
             </div>
 
+            {/* Subheading — hidden for now, re-enable if needed
             <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-              className="font-body text-lg text-white max-w-[460px] mt-6 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]"
+              className="font-body font-bold text-lg text-white max-w-[460px] mt-6 [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]"
             >
               Electrolytes in flavours you actually want to drink. Made for workouts, workdays,
               travel days, and everything in between. Clean ingredients. Honest labels. Real hydration.
             </motion.p>
+            */}
 
             <motion.div
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}

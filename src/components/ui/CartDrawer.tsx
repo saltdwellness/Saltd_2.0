@@ -64,12 +64,13 @@ export function CartDrawer() {
                 <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
                   <ShoppingBag size={48} className="text-saltd-black/20" />
                   <p className="font-body text-saltd-black/50">Your cart is empty.</p>
-                  <button
+                  <Link
+                    href="/shop"
                     onClick={closeCart}
                     className="bg-saltd-black text-white font-body font-semibold px-6 py-3 rounded-full text-sm hover:bg-saltd-purple transition-colors"
                   >
                     Shop flavours
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 items.map((item) => (
