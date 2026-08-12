@@ -27,7 +27,7 @@ export function Hero() {
           {/* Left - brand story */}
           <div className="flex flex-col justify-start lg:justify-center pt-10 pb-12 lg:py-0 px-6 lg:pl-12 lg:pr-8 relative z-10">
             <div ref={headlineRef} className="overflow-hidden">
-              <h1 className="font-display text-hero text-white leading-[0.95]">
+              <h1 className="font-display text-hero text-white leading-[0.95] [text-shadow:0_1px_10px_rgba(0,0,0,0.45)] md:[text-shadow:none]">
                 {words.map((word, i) => (
                   <span key={i} className="overflow-hidden inline-block mr-[0.25em]">
                     <span className="word-inner block">
@@ -60,7 +60,7 @@ export function Hero() {
               </a>
             </motion.div>
 
-            <p className="font-body italic text-sm text-white/80 mt-10 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)]">Water had a new personality.</p>
+            <p className="font-body text-sm text-white mt-10 [text-shadow:0_1px_3px_rgba(0,0,0,0.7),0_1px_10px_rgba(0,0,0,0.5)]">Water had a new personality.</p>
           </div>
 
           {/* Right - empty spacer so the headline stays left while the background product shows on the right (desktop) */}
