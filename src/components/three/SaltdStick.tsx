@@ -112,7 +112,7 @@ function makeLabel(flavour: string) {
   ctx.fillText(flavour.toUpperCase(), 160, 960);
   ctx.fillStyle = 'rgba(13,13,13,0.6)';
   ctx.font = '18px Arial';
-  ctx.fillText('NET WT. 5g', 160, 1010);
+  ctx.fillText('NET WT. 7g', 160, 1010);
 
   const tex = new THREE.CanvasTexture(c);
   tex.anisotropy = 8;

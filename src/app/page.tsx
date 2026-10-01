@@ -1,5 +1,4 @@
 'use client';
-import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { FloatingCTA } from '@/components/ui/FloatingCTA';
 import { Navbar } from '@/components/layout/Navbar';
 import { TopMarquee } from '@/components/layout/TopMarquee';
@@ -16,7 +15,6 @@ import { CTABanner } from '@/components/sections/CTABanner';
 import { Footer } from '@/components/layout/Footer';
 
 export default function Home() {
-  useSmoothScroll();
   return (
     <>
       <FloatingCTA />
@@ -46,6 +44,8 @@ export default function Home() {
         <CTABanner />
       </main>
       <Footer />
+      {/* spacer so the sticky mobile bar never covers footer content */}
+      <div className="h-20 lg:hidden" aria-hidden />
     </>
   );
 }

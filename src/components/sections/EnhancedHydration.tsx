@@ -11,12 +11,12 @@ const StickScene = dynamic(() => import('@/components/three/StickScene'), { ssr:
 const STICK_MODEL = '/models/sachet-banta-lime-spark.glb';
 
 const benefits = [
-  { title: 'All Natural', body: 'Clean ingredients, vegan, and zero added sugar. Each slim stick is just 5g.' },
-  { title: 'Essential Electrolytes', body: 'Sodium, potassium, magnesium, and vitamin C in a research-backed ratio.' },
-  { title: 'Stay Hydrated', body: 'Pulls water into your cells so you actually absorb it, not just sip it.' },
-  { title: 'Feel Sharper', body: 'Beat the dehydration fog. Stay clear, focused and energised all day.' },
-  { title: 'Made for Real Life', body: 'Workouts, workdays, travel days, late nights. There’s no wrong time.' },
-  { title: 'On The Go', body: 'Slim sticks that live in your bag. Tear, pour, shake, done in seconds.' },
+  { title: 'Clean & Vegan', body: 'Clean ingredients, vegan, and zero added sugar. Each slim stick is just 7g.' },
+  { title: 'Essential Electrolytes', body: 'A purposeful blend of electrolytes and vitamins to support everyday hydration.' },
+  { title: 'Stay Hydrated', body: 'Electrolytes help replace the key minerals you lose through sweat.' },
+  { title: 'Feel Sharper', body: 'Stay refreshed and ready for whatever the day throws at you.' },
+  { title: 'Made for Real Life', body: 'Gym. Office. Travel. Late nights. Whenever you need a reset.' },
+  { title: 'On The Go', body: 'Slim sticks that slip into your bag. Tear. Pour. Shake. Done.' },
 ];
 const left = benefits.slice(0, 3);
 const right = benefits.slice(3);

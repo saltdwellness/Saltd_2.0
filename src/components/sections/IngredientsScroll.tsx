@@ -123,7 +123,7 @@ export function IngredientsScroll() {
               style={{ rotate: (local - 0.5) * 10 }}
             >
               <Image
-                src="/images/saltd-banta-lime-box.webp"
+                src="/images/pouch-banta.webp"
                 alt="SALTD sachet"
                 fill
                 sizes="280px"

@@ -47,7 +47,7 @@ export function SocialProof() {
 
         {/* Right - masonry grid */}
         <div className="columns-2 gap-3 space-y-3">
-          {[1, 2, 3, 4, 5, 6].map((n, i) => (
+          {['saltd-community-1', 'campaign-hero', 'saltd-community-2', 'first-sip-lifestyle-v9', 'saltd-community-4', 'flavour-peach-hero'].map((n, i) => (
             <motion.div
               key={n}
               className="break-inside-avoid rounded-2xl overflow-hidden relative group border border-saltd-black/10"
@@ -57,7 +57,7 @@ export function SocialProof() {
               transition={{ delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               <Image
-                src={`/images/saltd-community-${n}.webp`}
+                src={`/images/${n}.webp`}
                 alt="SALTD community"
                 width={300}
                 height={400}

@@ -1,16 +1,16 @@
 'use client';
-import { Sparkles } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 /** Hero ingredient card — our differentiator. The full formula lives in the panel. */
 const ingredients = [
   {
-    Icon: Sparkles,
-    name: 'Ashwagandha + Monk Fruit',
-    amount: '125 + 150',
+    Icon: Zap,
+    name: 'Electrolyte Core',
+    amount: '910',
     unit: 'mg',
-    line: 'Adaptogen for calm focus, monk fruit for clean sweetness. No sugar, no crash.',
+    line: 'Sodium, potassium, chloride and magnesium — the key minerals you lose through sweat, in a balanced ratio.',
     hero: true,
   },
 ];

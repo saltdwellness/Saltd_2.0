@@ -35,7 +35,21 @@ export type Product = {
   packs: Pack[];       // buyable options, ascending by size
 };
 
+/** Cart line for a pack. "10 sticks" → "Banta Lime Spark · 10 sticks"; a named option ("First Sip Kit") stands alone. */
+export function packCartItem(product: Product, pack: Pack, image = product.productShot) {
+  return {
+    id: `${product.slug}-${pack.variantId}`,
+    variantId: pack.variantId,
+    name: /stick/i.test(pack.label) ? `${product.name} · ${pack.label}` : pack.label,
+    price: pack.price,
+    image,
+    quantity: 1,
+  };
+}
+
 /** Cheapest pack — used for "From ₹…" and default selection. */
 export function startingPack(product: Product): Pack {
-  return product.packs.reduce((min, p) => (p.price < min.price ? p : min), product.packs[0]);
+  const buyable = product.packs.filter((p) => p.available);
+  const packs = buyable.length ? buyable : product.packs;
+  return packs.reduce((min, p) => (p.price < min.price ? p : min), packs[0]);
 }

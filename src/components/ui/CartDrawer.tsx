@@ -7,10 +7,14 @@ import { useCartStore, cartTotal, cartCount, cartItemImage } from '@/store/cart'
 import { startCheckout } from '@/lib/checkout-client';
 import Link from 'next/link';
 
+const FREE_SHIPPING_AT = 499; // ₹ — keep in sync with the shipping policy
+
 export function CartDrawer() {
-  const { items, isOpen, closeCart, removeItem, updateQty } = useCartStore();
+  const { items, isOpen, lastAdded, closeCart, removeItem, updateQty } = useCartStore();
+  const justAdded = items.some((i) => i.id === lastAdded);
   const total = cartTotal(items);
   const count = cartCount(items);
+  const toFreeShipping = Math.max(0, FREE_SHIPPING_AT - total);
   const [checkingOut, setCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
@@ -50,7 +54,7 @@ export function CartDrawer() {
               <div className="flex items-center gap-2">
                 <ShoppingBag size={20} className="text-saltd-black" />
                 <span className="font-display text-xl text-saltd-black">
-                  Cart {count > 0 && <span className="text-saltd-lime">({count})</span>}
+                  {justAdded ? 'Added to your ritual ✨' : <>Cart {count > 0 && <span className="text-saltd-lime">({count})</span>}</>}
                 </span>
               </div>
               <button onClick={closeCart} className="text-saltd-black/50 hover:text-saltd-black transition-colors">
@@ -74,7 +78,7 @@ export function CartDrawer() {
                 </div>
               ) : (
                 items.map((item) => (
-                  <div key={item.id} className="flex gap-4 bg-white rounded-2xl p-4">
+                  <div key={item.id} className={`flex gap-4 bg-white rounded-2xl p-4 ${item.id === lastAdded ? 'ring-2 ring-saltd-lime' : ''}`}>
                     <div className="relative w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden bg-saltd-cream">
                       <Image src={cartItemImage(item)} alt={item.name} fill sizes="64px" className="object-contain p-1" />
                     </div>
@@ -121,16 +125,36 @@ export function CartDrawer() {
                   <span>Subtotal</span>
                   <span>₹{total}</span>
                 </div>
-                <p className="font-body text-xs text-saltd-black/40">
-                  Free shipping on orders above ₹499. Taxes calculated at checkout.
-                </p>
-                <Link
-                  href="/cart"
-                  onClick={closeCart}
-                  className="block w-full bg-saltd-black text-white font-body font-semibold py-3.5 rounded-full text-center hover:bg-saltd-purple transition-colors text-sm"
-                >
-                  View cart
-                </Link>
+                {/* Free-shipping progress */}
+                <div>
+                  <p className="font-body text-xs text-saltd-black/60">
+                    {toFreeShipping > 0
+                      ? <>You&apos;re <span className="font-semibold text-saltd-black">₹{toFreeShipping}</span> away from free shipping</>
+                      : <>You&apos;ve unlocked <span className="font-semibold text-saltd-black">free shipping</span> 🎉</>}
+                  </p>
+                  <div className="mt-2 h-1.5 rounded-full bg-saltd-black/10 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-saltd-lime transition-[width] duration-500"
+                      style={{ width: `${Math.min(100, (total / FREE_SHIPPING_AT) * 100)}%` }}
+                    />
+                  </div>
+                  <p className="font-body text-[11px] text-saltd-black/40 mt-1.5">Taxes calculated at checkout.</p>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={closeCart}
+                    className="w-full border border-saltd-black/15 text-saltd-black font-body font-semibold py-3.5 rounded-full text-center hover:border-saltd-black transition-colors text-sm"
+                  >
+                    Keep shopping
+                  </button>
+                  <Link
+                    href="/cart"
+                    onClick={closeCart}
+                    className="block w-full bg-saltd-black text-white font-body font-semibold py-3.5 rounded-full text-center hover:bg-saltd-purple transition-colors text-sm"
+                  >
+                    Go to cart →
+                  </Link>
+                </div>
                 {/* Creates a Shopify cart server-side, then redirects to Shopify's hosted checkout. */}
                 <button
                   onClick={handleCheckout}

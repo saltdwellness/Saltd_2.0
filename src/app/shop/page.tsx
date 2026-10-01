@@ -7,7 +7,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { TopMarquee } from '@/components/layout/TopMarquee';
 import { Footer } from '@/components/layout/Footer';
 import { useProducts } from '@/components/providers/ProductsProvider';
-import { startingPack, type Product } from '@/lib/product-types';
+import { startingPack, packCartItem, type Product } from '@/lib/product-types';
 import { useCartStore } from '@/store/cart';
 
 function ShopCard({ flavour, index }: { flavour: Product; index: number }) {
@@ -73,21 +73,14 @@ function ShopCard({ flavour, index }: { flavour: Product; index: number }) {
             <span className="font-body text-saltd-black/40 text-xs">From</span>
             <div className="font-display text-2xl text-saltd-black leading-none">₹{starter.price}</div>
           </div>
-          <span className="font-body text-saltd-black/40 text-xs">{starter.size} sticks</span>
+          <span className="font-body text-saltd-black/40 text-xs">{starter.label}</span>
         </div>
 
         {/* Actions */}
         <div className="mt-4 flex flex-col gap-2">
           <button
             onClick={() =>
-              addItem({
-                id: `${flavour.slug}-${starter.size}`,
-                variantId: starter.variantId,
-                name: `${flavour.name} · ${starter.size} sticks`,
-                price: starter.price,
-                image: flavour.productShot,
-                quantity: 1,
-              })
+              addItem(packCartItem(flavour, starter))
             }
             className="w-full bg-saltd-lime text-white font-body font-semibold text-sm py-3 rounded-full hover:scale-[1.03] active:scale-95 transition-transform flex items-center justify-center gap-2"
           >

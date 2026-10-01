@@ -1,5 +1,5 @@
 import { shopifyFetch, shopifyConfigured, PRODUCTS_REVALIDATE } from './shopify';
-import { FLAVOURS, PACKS, type Flavour } from './flavours';
+import { FLAVOURS, DISCOVERY, PACKS, type Flavour } from './flavours';
 import type { Product, Pack } from './product-types';
 
 export type { Product, Pack } from './product-types';
@@ -15,7 +15,7 @@ export { startingPack } from './product-types';
  * new product added in Shopify still renders (just with default styling).
  */
 const overlayFor = (handle: string): Flavour | undefined =>
-  FLAVOURS.find((f) => f.slug === handle);
+  [...FLAVOURS, DISCOVERY].find((f) => f.slug === handle);
 
 /* ------------------------------------------------------------------ *
  * Shopify GraphQL
@@ -89,9 +89,18 @@ function packsFromVariants(variants: ShopifyVariant[]): Pack[] {
   const maxPerServe = Math.max(...packs.map((p) => p.price / p.size));
   for (const p of packs) {
     const pct = Math.round((1 - p.price / p.size / maxPerServe) * 100);
-    if (pct > 0) p.savePct = pct;
+    if (pct > 0 && p.size > packs[0].size) p.savePct = pct; // same-size options (Discovery vs First Sip) aren't "savings"
   }
   return packs;
+}
+
+/**
+ * Discovery Pack is sold with and without the glass. Until Shopify has the no-glass
+ * variant, show it as a non-buyable placeholder so checkout never gets a `local:` id.
+ */
+function withDiscoveryPlaceholder(handle: string, packs: Pack[]): Pack[] {
+  if (handle !== DISCOVERY.slug || !packs.every((p) => /glass/i.test(p.label))) return packs;
+  return [{ size: 6, label: '6 sticks', price: 449, variantId: 'local:discovery-pack-6', available: false }, ...packs];
 }
 
 function mergeProduct(sp: ShopifyProduct): Product {
@@ -115,7 +124,7 @@ function mergeProduct(sp: ShopifyProduct): Product {
     reviews: ov?.reviews ?? 0,
     taste: ov?.taste ?? [],
     pairsWith: ov?.pairsWith ?? '',
-    packs: packsFromVariants(sp.variants.nodes),
+    packs: withDiscoveryPlaceholder(sp.handle, packsFromVariants(sp.variants.nodes)),
   };
 }
 
