@@ -14,6 +14,9 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[];
   isOpen: boolean;
+  lastAdded: string | null;   // id of the item just added — drawer shows "Added to your ritual"
+  picked: { slug: string; variantId: string } | null; // homepage flavour selection, for the sticky mobile bar
+  setPicked: (picked: { slug: string; variantId: string }) => void;
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
   updateQty: (id: string, qty: number) => void;
@@ -27,6 +30,9 @@ export const useCartStore = create<CartStore>()(
     (set, get) => ({
       items: [],
       isOpen: false,
+      lastAdded: null,
+      picked: null,
+      setPicked: (picked) => set({ picked }),
 
       addItem: (item) => {
         const existing = get().items.find((i) => i.id === item.id);
@@ -34,9 +40,10 @@ export const useCartStore = create<CartStore>()(
           set((s) => ({
             items: s.items.map((i) => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i),
             isOpen: true,
+            lastAdded: item.id,
           }));
         } else {
-          set((s) => ({ items: [...s.items, { ...item, quantity: 1 }], isOpen: true }));
+          set((s) => ({ items: [...s.items, { ...item, quantity: 1 }], isOpen: true, lastAdded: item.id }));
         }
       },
 
@@ -48,8 +55,8 @@ export const useCartStore = create<CartStore>()(
       },
 
       clearCart: () => set({ items: [] }),
-      openCart: () => set({ isOpen: true }),
-      closeCart: () => set({ isOpen: false }),
+      openCart: () => set({ isOpen: true, lastAdded: null }),
+      closeCart: () => set({ isOpen: false, lastAdded: null }),
     }),
     {
       name: 'saltd-cart',

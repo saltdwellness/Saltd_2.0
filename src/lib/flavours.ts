@@ -8,9 +8,9 @@ export type Flavour = {
   accent: string;
   stick: string;       // tall floating stick image
   image: string;       // lifestyle / hero shot (cart thumbnail)
-  productShot: string; // real product photo (box + sachet + fruit) for the PDP hero
+  productShot: string; // real product photo (pouch + stick) for the PDP hero
   gallery: string[];   // PDP image gallery (first entry is the main shot)
-  boxImage: string;    // fallback / box photo
+  boxImage: string;    // pack photo (pouch)
   scaleAdj: number;
   rating: number;
   reviews: number;
@@ -27,9 +27,9 @@ export const FLAVOURS: Flavour[] = [
     accent: '#2E5BFF',
     stick: '/images/stick-banta.webp',
     image: '/images/flavour-banta-hero.webp',
-    productShot: '/images/product-banta.webp',
-    gallery: ['/images/product-banta.webp', '/images/gallery-banta-1.webp', '/images/gallery-banta-2.webp', '/images/gallery-banta-3.webp'],
-    boxImage: '/images/saltd-banta-lime-box.webp',
+    productShot: '/images/pouch-banta.webp',
+    gallery: ['/images/pouch-banta.webp', '/images/saltd-community-1.webp', '/images/campaign-hero.webp', '/images/flavour-banta-hero.webp'],
+    boxImage: '/images/pouch-banta.webp',
     scaleAdj: 1,
     rating: 4.8,
     reviews: 1230,
@@ -44,9 +44,9 @@ export const FLAVOURS: Flavour[] = [
     accent: '#6C2BD9',
     stick: '/images/stick-kala.webp',
     image: '/images/flavour-kala-hero.webp',
-    productShot: '/images/product-kala.webp',
-    gallery: ['/images/product-kala.webp', '/images/gallery-kala-1.webp', '/images/gallery-kala-2.webp', '/images/gallery-kala-3.webp'],
-    boxImage: '/images/saltd-kala-khatta-box.webp',
+    productShot: '/images/pouch-kala.webp',
+    gallery: ['/images/pouch-kala.webp', '/images/saltd-community-2.webp', '/images/gallery-kala-2.webp', '/images/gallery-kala-3.webp'],
+    boxImage: '/images/pouch-kala.webp',
     scaleAdj: 1.18,
     rating: 4.8,
     reviews: 1104,
@@ -61,9 +61,9 @@ export const FLAVOURS: Flavour[] = [
     accent: '#F97316',
     stick: '/images/stick-peach.webp',
     image: '/images/flavour-peach-hero.webp',
-    productShot: '/images/product-peach.webp',
-    gallery: ['/images/product-peach.webp', '/images/gallery-peach-1.webp', '/images/gallery-peach-2.webp', '/images/gallery-peach-3.webp'],
-    boxImage: '/images/saltd-peach-himalayan-box.webp',
+    productShot: '/images/pouch-peach.webp',
+    gallery: ['/images/pouch-peach.webp', '/images/saltd-community-4.webp', '/images/gallery-peach-3.webp', '/images/flavour-peach-hero.webp'],
+    boxImage: '/images/pouch-peach.webp',
     scaleAdj: 1,
     rating: 4.8,
     reviews: 989,
@@ -75,8 +75,26 @@ export const FLAVOURS: Flavour[] = [
 export type Pack = { size: number; price: number; savePct?: number };
 export const PACKS: Pack[] = [
   { size: 10, price: 799 },
-  { size: 30, price: 2100 },
 ];
+
+/** Presentation overlay for the Shopify `discovery-pack` product (not a flavour, so kept out of FLAVOURS). */
+export const DISCOVERY: Flavour = {
+  slug: 'discovery-pack',
+  name: 'Discovery Pack',
+  short: 'All three flavours, two sticks each. Find your favourite.',
+  desc: 'Six sticks: two Banta Lime Spark, two Kala Khatta, two Peach Himalayan. The easiest way to find your flavour. Want the full ritual? Pick the First Sip Kit and get the same six sticks plus the SALTD signature glass.',
+  accent: '#2E5BFF',
+  stick: '/images/pouch-discovery.webp',
+  image: '/images/pouch-discovery.webp',
+  productShot: '/images/pouch-discovery.webp',
+  gallery: ['/images/pouch-discovery.webp', '/images/pouch-first-sip.webp', '/images/first-sip-lifestyle-v9.webp'],
+  boxImage: '/images/pouch-discovery.webp',
+  scaleAdj: 1,
+  rating: 4.8,
+  reviews: 0,
+  taste: ['Zesty', 'Tangy', 'Juicy'],
+  pairsWith: 'First-timers, gifting, and anyone who cannot pick just one',
+};
 
 export function getFlavour(slug: string): Flavour | undefined {
   return FLAVOURS.find((f) => f.slug === slug);

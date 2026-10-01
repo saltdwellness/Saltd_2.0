@@ -6,7 +6,7 @@ import { Sparkle, Loop } from '@/components/ui/Doodles';
 
 const steps = [
   { number: '1', title: 'Pour',  body: 'Empty one SALTD stick into 250–300ml of cold water.', image: '/images/saltd-step-pour.webp' },
-  { number: '2', title: 'Mix',   body: 'Stir or shake until dissolved. Watch the flavour come alive.', image: '/images/saltd-step-mix.webp' },
+  { number: '2', title: 'Mix',   body: 'Stir or shake until dissolved. Watch the flavour come alive.', image: '/images/saltd-step-mix-glass.webp', contain: true },
   { number: '3', title: 'Reset', body: 'Sip, hydrate, and feel the difference. Every time.', image: '/images/saltd-step-reset.webp' },
 ];
 
@@ -39,8 +39,8 @@ export function HowItWorks() {
                   {step.number}
                 </span>
                 {/* photo */}
-                <div className="relative h-56 rounded-2xl overflow-hidden bg-white shadow-sm">
-                  <Image src={step.image} alt={step.title} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover" />
+                <div className="relative h-80 rounded-2xl overflow-hidden bg-white shadow-sm">
+                  <Image src={step.image} alt={step.title} fill sizes="(max-width:768px) 100vw, 33vw" className={'contain' in step ? 'object-contain py-3' : 'object-cover'} />
                 </div>
                 <div className="mt-5">
                   <h3 className="font-display text-[32px] text-saltd-black leading-none">{step.title}</h3>

@@ -6,7 +6,7 @@
  */
 export function StickPlaceholder({ name, accent }: { name: string; accent: string }) {
   return (
-    <div className="relative w-full aspect-[1/3] rounded-[20px] bg-white shadow-xl overflow-hidden">
+    <div className="relative w-full aspect-[1/3] rounded-2xl bg-white shadow-xl overflow-hidden">
       {/* crimped top */}
       <div
         className="absolute inset-x-0 top-0 h-3"
@@ -31,7 +31,7 @@ export function StickPlaceholder({ name, accent }: { name: string; accent: strin
       <div className="absolute inset-x-0 bottom-5 text-center px-2">
         <p className="font-display text-saltd-black text-base leading-none">SALTD.</p>
         <p className="font-body text-saltd-black/45 text-[10px] mt-1">hydration enhanced</p>
-        <p className="font-body text-saltd-black/35 text-[9px] mt-2">electrolyte mix · 5g</p>
+        <p className="font-body text-saltd-black/35 text-[9px] mt-2">electrolyte mix · 7g</p>
       </div>
 
       {/* crimped bottom */}

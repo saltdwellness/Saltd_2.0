@@ -7,14 +7,14 @@ import { ArrowLeft, ShoppingBag, Star, Truck, Leaf, Award } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { TopMarquee } from '@/components/layout/TopMarquee';
 import { Footer } from '@/components/layout/Footer';
-import { startingPack, type Product } from '@/lib/product-types';
+import { startingPack, packCartItem, type Product } from '@/lib/product-types';
 import { useCartStore } from '@/store/cart';
 
 export function ProductView({ product }: { product: Product }) {
   const flavour = product; // presentation fields read off the merged product
-  const [packSize, setPackSize] = useState<number>(() => startingPack(product).size);
+  const [variantId, setVariantId] = useState<string>(() => startingPack(product).variantId);
   const [activeImg, setActiveImg] = useState(0);
-  const pack = product.packs.find((p) => p.size === packSize) ?? startingPack(product);
+  const pack = product.packs.find((p) => p.variantId === variantId) ?? startingPack(product);
   const addItem = useCartStore((s) => s.addItem);
 
   return (
@@ -110,21 +110,21 @@ export function ProductView({ product }: { product: Product }) {
             </div>
 
             {/* Pack picker */}
-            <p className="font-body text-saltd-black/40 text-xs uppercase tracking-widest mt-8 mb-2">Choose pack size</p>
+            <p className="font-body text-saltd-black/40 text-xs uppercase tracking-widest mt-8 mb-2">Choose pack</p>
             <div className="flex gap-2 flex-wrap">
               {product.packs.map((p) => {
-                const isActive = p.size === packSize;
+                const isActive = p.variantId === variantId;
                 return (
                   <button
-                    key={p.size}
-                    onClick={() => setPackSize(p.size)}
+                    key={p.variantId}
+                    onClick={() => setVariantId(p.variantId)}
                     className={`relative font-body font-semibold text-sm px-5 py-2.5 rounded-full border transition-all ${
                       isActive
                         ? 'bg-saltd-black text-white border-saltd-black'
                         : 'bg-white text-saltd-black/70 border-saltd-black/15 hover:border-saltd-black/40'
                     }`}
                   >
-                    <span className="block leading-none">{p.size} sticks</span>
+                    <span className="block leading-none">{p.label}</span>
                     <span className={`block text-[11px] font-normal mt-1 ${isActive ? 'text-white/70' : 'text-saltd-black/45'}`}>
                       ₹{p.price} · ₹{Math.round(p.price / p.size)}/serve
                     </span>
@@ -139,17 +139,11 @@ export function ProductView({ product }: { product: Product }) {
             </div>
 
             <button
-              onClick={() => addItem({
-                id: `${flavour.slug}-${pack.size}`,
-                variantId: pack.variantId,
-                name: `${flavour.name} · ${pack.size} sticks`,
-                price: pack.price,
-                image: flavour.productShot,
-                quantity: 1,
-              })}
-              className="mt-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-saltd-lime text-white font-body font-semibold px-10 py-4 rounded-full hover:scale-[1.02] active:scale-95 transition-transform"
+              disabled={!pack.available}
+          onClick={() => addItem(packCartItem(product, pack))}
+              className="mt-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-saltd-lime text-white font-body font-semibold px-10 py-4 rounded-full hover:scale-[1.02] active:scale-95 transition-transform disabled:opacity-50 disabled:pointer-events-none"
             >
-              <ShoppingBag size={18} /> Add to cart · ₹{pack.price}
+              <ShoppingBag size={18} /> {pack.available ? `Add to cart · ₹${pack.price}` : 'Coming soon'}
             </button>
 
             {/* Trust icons row */}
@@ -229,20 +223,14 @@ export function ProductView({ product }: { product: Product }) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-body font-semibold text-saltd-black text-sm truncate">{flavour.name}</p>
-          <p className="font-body text-saltd-black/50 text-xs">{pack.size} sticks · ₹{pack.price}</p>
+          <p className="font-body text-saltd-black/50 text-xs">{pack.label} · ₹{pack.price}</p>
         </div>
         <button
-          onClick={() => addItem({
-            id: `${flavour.slug}-${pack.size}`,
-            variantId: pack.variantId,
-            name: `${flavour.name} · ${pack.size} sticks`,
-            price: pack.price,
-            image: flavour.productShot,
-            quantity: 1,
-          })}
-          className="flex-shrink-0 inline-flex items-center gap-2 bg-saltd-lime text-white font-body font-semibold px-6 py-3 rounded-full active:scale-95 transition-transform"
+          disabled={!pack.available}
+          onClick={() => addItem(packCartItem(product, pack))}
+          className="flex-shrink-0 inline-flex items-center gap-2 bg-saltd-lime text-white font-body font-semibold px-6 py-3 rounded-full active:scale-95 transition-transform disabled:opacity-50 disabled:pointer-events-none"
         >
-          <ShoppingBag size={16} /> Add · ₹{pack.price}
+          <ShoppingBag size={16} /> {pack.available ? `Add · ₹${pack.price}` : 'Soon'}
         </button>
       </div>
       {/* spacer so the sticky bar never covers footer content */}

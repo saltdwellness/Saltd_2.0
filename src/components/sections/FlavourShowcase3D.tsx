@@ -15,7 +15,7 @@ const showcase = [
     tagline: 'Zesty. Fizzy. Unstoppably fresh.',
     note: 'The classic nimbu-soda kick, reborn as an electrolyte ritual.',
     accent: '#2E5BFF',
-    image: '/images/saltd-banta-lime-box.webp',
+    image: '/images/pouch-banta.webp',
     // Drop your model here to auto-upgrade to photorealistic 3D:
     model: '/models/sachet-banta-lime-spark.glb',
   },
@@ -25,7 +25,7 @@ const showcase = [
     tagline: 'Bold. Tangy. Iconically you.',
     note: 'That nostalgic golgappa-stall flavour, with real electrolytes.',
     accent: '#6C2BD9',
-    image: '/images/saltd-kala-khatta-box.webp',
+    image: '/images/pouch-kala.webp',
     model: '/models/sachet-kala-khatta.glb',
   },
   {
@@ -34,7 +34,7 @@ const showcase = [
     tagline: 'Juicy. Peachy. Perfectly balanced.',
     note: 'Soft Himalayan peach with a clean mineral finish.',
     accent: '#F97316',
-    image: '/images/saltd-peach-himalayan-box.webp',
+    image: '/images/pouch-peach.webp',
     model: '/models/sachet-peach-himalayan.glb',
   },
 ];

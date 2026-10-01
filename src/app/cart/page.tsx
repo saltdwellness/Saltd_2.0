@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Minus, Plus, X, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { useCartStore, cartTotal, cartCount, cartItemImage } from '@/store/cart';
 import { useProducts } from '@/components/providers/ProductsProvider';
-import { startingPack } from '@/lib/product-types';
+import { startingPack, packCartItem } from '@/lib/product-types';
 import { startCheckout } from '@/lib/checkout-client';
 import { Navbar } from '@/components/layout/Navbar';
 import { TopMarquee } from '@/components/layout/TopMarquee';
@@ -201,14 +201,7 @@ export default function CartPage() {
                           <p className="font-body text-xs text-saltd-black/50">From ₹{starter.price}</p>
                         </div>
                         <button
-                          onClick={() => useCartStore.getState().addItem({
-                            id: `${f.slug}-${starter.size}`,
-                            variantId: starter.variantId,
-                            name: `${f.name} · ${starter.size} sticks`,
-                            price: starter.price,
-                            image: f.productShot,
-                            quantity: 1,
-                          })}
+                          onClick={() => useCartStore.getState().addItem(packCartItem(f, starter))}
                           className="text-xs font-body font-semibold px-4 py-2 rounded-full bg-saltd-lime text-white hover:scale-105 active:scale-95 transition-transform"
                         >
                           Add

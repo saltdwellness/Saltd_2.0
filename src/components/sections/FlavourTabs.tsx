@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -7,28 +7,35 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cart';
 import { useProducts } from '@/components/providers/ProductsProvider';
-import { startingPack } from '@/lib/product-types';
+import { startingPack, packCartItem } from '@/lib/product-types';
 
 export function FlavourTabs() {
   const products = useProducts();
   // order holds product indices; the visible row is the first three, rotating.
   const [order, setOrder] = useState<number[]>(() => products.map((_, i) => i));
-  const [packSize, setPackSize] = useState<number | null>(null); // null → each product's cheapest
+  const [variantId, setVariantId] = useState<string | null>(null); // null → each product's cheapest
   const dragX = useRef(0);
   const didDrag = useRef(false); // distinguish a swipe from a tap/click
   const router = useRouter();
   const addItem = useCartStore((s) => s.addItem);
-
-  if (products.length === 0) return null;
+  const setPicked = useCartStore((s) => s.setPicked);
+  const interacted = useRef(false); // only report a pick once the shopper actually chooses
 
   const displayCount = Math.min(3, products.length);
   const centerPos = Math.min(1, displayCount - 1); // 1→0, 2→1, 3→1
   const displayed = order.slice(0, displayCount);
   const active = products[order[centerPos]] ?? products[0];
-  const pack = active.packs.find((p) => p.size === packSize) ?? startingPack(active);
+  const pack = active ? active.packs.find((p) => p.variantId === variantId) ?? startingPack(active) : undefined;
 
-  const next = () => setOrder((o) => [...o.slice(1), o[0]]);          // rotate left → left moves to right
-  const prev = () => setOrder((o) => [o[o.length - 1], ...o.slice(0, -1)]);
+  // Mirror the shopper's choice into the sticky mobile bar.
+  useEffect(() => {
+    if (interacted.current && active && pack) setPicked({ slug: active.slug, variantId: pack.variantId });
+  }, [active?.slug, pack?.variantId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!active || !pack) return null;
+
+  const next = () => { interacted.current = true; setOrder((o) => [...o.slice(1), o[0]]); };          // rotate left → left moves to right
+  const prev = () => { interacted.current = true; setOrder((o) => [o[o.length - 1], ...o.slice(0, -1)]); };
 
   return (
     <section className="py-10 lg:py-14 px-6 lg:px-16 relative overflow-hidden bg-saltd-pale-lime/50 scroll-mt-16">
@@ -122,21 +129,21 @@ export function FlavourTabs() {
           <p className="font-body text-saltd-black/55 text-sm mt-3">{active.desc}</p>
 
           {/* Pack-size selector */}
-          <p className="font-body text-saltd-black/40 text-xs uppercase tracking-widest mt-5 mb-2">Choose pack size</p>
+          <p className="font-body text-saltd-black/40 text-xs uppercase tracking-widest mt-5 mb-2">Choose pack</p>
           <div className="flex justify-center gap-2 flex-wrap">
             {active.packs.map((p) => {
-              const isActive = p.size === pack.size;
+              const isActive = p.variantId === pack.variantId;
               return (
                 <button
-                  key={p.size}
-                  onClick={() => setPackSize(p.size)}
+                  key={p.variantId}
+                  onClick={() => { interacted.current = true; setVariantId(p.variantId); }}
                   className={`relative font-body font-semibold text-sm px-5 py-2.5 rounded-full border transition-all ${
                     isActive
                       ? 'bg-saltd-black text-white border-saltd-black'
                       : 'bg-white text-saltd-black/70 border-saltd-black/15 hover:border-saltd-black/40'
                   }`}
                 >
-                  <span className="block leading-none">{p.size} sticks</span>
+                  <span className="block leading-none">{p.label}</span>
                   <span className={`block text-[11px] font-normal mt-1 ${isActive ? 'text-white/70' : 'text-saltd-black/45'}`}>
                     ₹{p.price} · ₹{Math.round(p.price / p.size)}/serve
                   </span>
@@ -152,14 +159,7 @@ export function FlavourTabs() {
 
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
             <button
-              onClick={() => addItem({
-                id: `${active.slug}-${pack.size}`,
-                variantId: pack.variantId,
-                name: `${active.name} · ${pack.size} sticks`,
-                price: pack.price,
-                image: active.image,
-                quantity: 1,
-              })}
+              onClick={() => addItem(packCartItem(active, pack, active.image))}
               className="inline-block bg-saltd-black text-white font-body font-semibold px-8 py-3.5 rounded-full hover:scale-105 active:scale-95 transition-transform"
             >
               Add to cart · ₹{pack.price}
